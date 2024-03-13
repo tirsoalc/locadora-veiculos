@@ -9,12 +9,22 @@ public class Veiculo implements Identificavel {
     private String modelo;
     private String placa;
     private TipoVeiculo tipoVeiculo;
+    private boolean disponivel;
 
     public Veiculo(String marca, String modelo, String placa, TipoVeiculo tipoVeiculo) {
         this.marca = marca;
         this.modelo = modelo;
         this.placa = placa;
         this.tipoVeiculo = tipoVeiculo;
+        this.disponivel = true;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 
     @Override

@@ -1,10 +1,13 @@
 package model.cliente;
 
 public class Cliente {
-    final String nome;
+    String nome;
 
     public Cliente(String nome) {
         this.nome = nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

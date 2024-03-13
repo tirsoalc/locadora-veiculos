@@ -32,7 +32,7 @@ public class ClientePessoaJuridica extends Cliente implements Identificavel {
 
     @Override
     public String toString() {
-        return "[nome:'" + super.nome + '\'' + ", CPF:'"+ cnpj +'\''+']';
+        return "[nome:'" + super.nome + '\'' + ", CNPJ:'"+ cnpj +'\''+']';
     }
 
 }

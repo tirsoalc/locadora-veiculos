@@ -9,6 +9,7 @@ import repository.AluguelRepository;
 import repository.ClienteRepository;
 import repository.VeiculoRepository;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interactivity {
@@ -19,35 +20,41 @@ public class Interactivity {
     static Scanner scanner = new Scanner(System.in);
 
     public static void mainMenu() {
-        int menuOption;
+        int menuOption = 0;
 
         do {
             Menus.showMainMenu();
             System.out.print("Selecione uma opção: ");
 
-            menuOption = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                menuOption = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (menuOption) {
-                case 1: //Veículos
-                    veiculosMenu();
-                    break;
+                switch (menuOption) {
+                    case 1: //Veículos
+                        veiculosMenu();
+                        break;
 
-                case 2: //Clientes
-                    clientesMenu();
-                    break;
+                    case 2: //Clientes
+                        clientesMenu();
+                        break;
 
-                case 3: //Aluguéis
-                    alugueisMenu();
-                    break;
+                    case 3: //Aluguéis
+                        alugueisMenu();
+                        break;
 
-                case 4: //Exit
-                    System.out.println("\nAté mais!");
-                    break;
+                    case 4: //Exit
+                        System.out.println("\nAté mais!");
+                        break;
 
-                default:
-                    System.out.print("\nOpção inválida selecionada!");
+                    default:
+                        System.out.print("\nOpção inválida selecionada!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\nPor favor, digite o número da opção desejada");
+                scanner.nextLine();
             }
+
         } while (menuOption != 4);
     }
 
