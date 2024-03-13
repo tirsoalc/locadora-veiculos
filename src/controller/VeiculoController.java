@@ -1,12 +1,12 @@
 package controller;
 
 public class VeiculoController {
-    public void cadastrarVeiculo(){
+    public static void cadastrarVeiculo(){
     }
 
-    public void alterarVeiculo(){
+    public static void alterarVeiculo(){
     }
 
-    public void buscarVeiculo(){
+    public static void buscarVeiculo(){
     }
 }

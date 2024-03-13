@@ -1,3 +1,8 @@
+package view;
+
+import controller.AluguelController;
+import controller.ClienteController;
+import controller.VeiculoController;
 import model.cliente.ClientePessoaFisica;
 import model.cliente.ClientePessoaJuridica;
 import repository.AluguelRepository;
@@ -58,15 +63,15 @@ public class Interactivity {
 
             switch (menuOption) {
                 case 1: //Buscar veículo
-                    //TODO
+                    VeiculoController.buscarVeiculo();
                     break;
 
                 case 2: //Cadastrar veículo
-                    //TODO
+                    VeiculoController.cadastrarVeiculo();
                     break;
 
                 case 3: //Alterar veículo
-                    //TODO
+                    VeiculoController.alterarVeiculo();
                     break;
 
                 case 4: //Voltar
@@ -96,15 +101,15 @@ public class Interactivity {
 
             switch (menuOption) {
                 case 1: //Buscar cliente
-                    //TODO
+                    ClienteController.buscarCliente();
                     break;
 
                 case 2: //Cadastrar cliente
-                    //TODO
+                    ClienteController.cadastrarCliente();
                     break;
 
                 case 3: //Alterar cliente
-                    //TODO
+                    ClienteController.alterarCliente();
                     break;
 
                 case 4: //Voltar
@@ -134,11 +139,11 @@ public class Interactivity {
 
             switch (menuOption) {
                 case 1: //Alugar veículo
-                    //TODO
+                    AluguelController.alugarVeiculo();
                     break;
 
                 case 2: //Devolver veículo
-                    //TODO
+                    AluguelController.devolverVeiculo();
                     break;
 
                 case 3: //Voltar

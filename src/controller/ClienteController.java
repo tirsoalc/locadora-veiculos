@@ -1,12 +1,12 @@
 package controller;
 
 public class ClienteController{
-    public void cadastrarCliente(){
+    public static void cadastrarCliente(){
     }
 
-    public void alterarCliente(){
+    public static void alterarCliente(){
     }
 
-    public void buscarCliente(){
+    public static void buscarCliente(){
     }
 }

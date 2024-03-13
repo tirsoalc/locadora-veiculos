@@ -1,3 +1,5 @@
+package view;
+
 public class Menus {
     public static void showMainMenu() {
         String menuStr = """

@@ -1,9 +1,9 @@
 package controller;
 
 public class AluguelController {
-    public void alugarVeiculo(){
+    public static void alugarVeiculo(){
     }
 
-    public void devolverVeiculo(){
+    public static void devolverVeiculo(){
     }
 }
