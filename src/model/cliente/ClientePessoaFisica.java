@@ -4,12 +4,27 @@ import model.Identificavel;
 
 import java.util.Objects;
 
-public class ClientePessoaFisica extends Cliente implements Identificavel {
-    final private String cpf;
+public class ClientePessoaFisica implements Cliente, Identificavel {
+
+    private String nome;
+    private String cpf;
 
     public ClientePessoaFisica(String nome, String cpf) {
-        super(nome);
+        this.nome = nome;
         this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    @Override
+    public String getId() {
+        return cpf;
     }
 
     @Override
@@ -26,12 +41,12 @@ public class ClientePessoaFisica extends Cliente implements Identificavel {
     }
 
     @Override
-    public String getId() {
-        return cpf;
+    public String toString() {
+        return "[nome:'" + nome + '\'' + ", CPF:'"+ cpf +'\''+']';
     }
 
     @Override
-    public String toString() {
-        return "[nome:'" + super.nome + '\'' + ", CPF:'"+ cpf +'\''+']';
+    public String mostrarInformacoes() {
+        return "Cliente Pessoa Física: Nome = " + nome + ", CPF = " + cpf;
     }
 }

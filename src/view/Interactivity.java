@@ -5,9 +5,9 @@ import controller.ClienteController;
 import controller.VeiculoController;
 import model.cliente.ClientePessoaFisica;
 import model.cliente.ClientePessoaJuridica;
-import repository.AluguelRepository;
-import repository.ClienteRepository;
-import repository.VeiculoRepository;
+import repository.aluguel.AluguelRepository;
+import repository.cliente.ClienteRepository;
+import repository.veiculo.VeiculoRepository;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

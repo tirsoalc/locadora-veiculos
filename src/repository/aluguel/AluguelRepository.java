@@ -1,10 +1,11 @@
-package repository;
+package repository.aluguel;
 
 import model.Aluguel;
+import repository.db.Database;
 
 import java.util.HashSet;
 
-public class AluguelRepository {
+public class AluguelRepository implements AluguelRepositoryInterface {
     private Database<Aluguel> alugueisCadastrados = new Database<>();
 
     public void adicionarAluguel(Aluguel aluguel) {

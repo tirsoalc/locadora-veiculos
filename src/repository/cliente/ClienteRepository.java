@@ -1,13 +1,14 @@
-package repository;
+package repository.cliente;
 
 import model.cliente.Cliente;
+import repository.db.Database;
 
 import java.util.HashSet;
-import java.util.Iterator;
 
-public class ClienteRepository<T extends Cliente> {
+public class ClienteRepository<T extends Cliente> implements ClienteRepositoryInterface<T> {
     private Database<T> clientesCadastrados = new Database<>();
 
+    @Override
     public void adicionarCliente(T cliente) {
         clientesCadastrados.adicionarItem(cliente);
     }

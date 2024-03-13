@@ -1,13 +1,5 @@
 package model.cliente;
 
-public class Cliente {
-    String nome;
-
-    public Cliente(String nome) {
-        this.nome = nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+public interface Cliente {
+    String mostrarInformacoes();
 }
