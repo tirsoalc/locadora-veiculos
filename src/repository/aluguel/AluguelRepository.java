@@ -16,7 +16,7 @@ public class AluguelRepository implements AluguelRepositoryInterface {
         alugueisCadastrados.removerItem(aluguel);
     }
 
-    public Aluguel buscarAluguel(Integer id) {
+    public Aluguel buscarAluguel(String id) {
         return alugueisCadastrados.buscarItem(id);
     }
 
