@@ -1,15 +1,16 @@
 package model;
 
-import repository.AluguelRepository;
-import repository.ClienteRepository;
-import repository.VeiculoRepository;
+import model.cliente.Cliente;
+import repository.aluguel.AluguelRepositoryInterface;
+import repository.cliente.ClienteRepositoryInterface;
+import repository.veiculo.VeiculoRepositoryInterface;
 
 public class LocadoraVeiculo {
-    AluguelRepository alugueis;
-    ClienteRepository clientes;
-    VeiculoRepository veiculos;
+    AluguelRepositoryInterface alugueis;
+    ClienteRepositoryInterface<Cliente> clientes;
+    VeiculoRepositoryInterface veiculos;
 
-    public LocadoraVeiculo(AluguelRepository alugueis, ClienteRepository clientes, VeiculoRepository veiculos) {
+    public LocadoraVeiculo(AluguelRepositoryInterface alugueis, ClienteRepositoryInterface<Cliente> clientes, VeiculoRepositoryInterface veiculos) {
         this.alugueis = alugueis;
         this.clientes = clientes;
         this.veiculos = veiculos;

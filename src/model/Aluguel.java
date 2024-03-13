@@ -27,4 +27,14 @@ public class Aluguel implements Identificavel{
     public String getId() {
         return String.valueOf(idAluguel);
     }
+
+    @Override
+    public String toString() {
+        return "Aluguel{" +
+                "idAluguel=" + idAluguel +
+                ", veiculo=" + veiculo +
+                ", cliente=" + cliente +
+                ", dataAluguel=" + dataAluguel +
+                '}';
+    }
 }

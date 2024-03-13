@@ -1,10 +1,11 @@
-package repository;
+package repository.veiculo;
 
 import model.veiculo.Veiculo;
+import repository.db.Database;
 
 import java.util.HashSet;
 
-public class VeiculoRepository {
+public class VeiculoRepository implements VeiculoRepositoryInterface{
     private Database<Veiculo> veiculosCadastrados = new Database<>();
 
     public void adicionarVeiculo(Veiculo veiculo) {

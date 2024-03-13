@@ -1,6 +1,7 @@
-package repository;
+package repository.aluguel;
 
 import model.Aluguel;
+import repository.db.Database;
 
 import java.util.HashSet;
 

@@ -4,11 +4,29 @@ import model.Identificavel;
 
 import java.util.Objects;
 
-public class ClientePessoaJuridica extends Cliente implements Identificavel {
-    final private String cnpj;
+public class ClientePessoaJuridica implements Cliente, Identificavel {
+
+    private String razaoSocial;
+    private String cnpj;
 
     public ClientePessoaJuridica(String nome, String cnpj) {
-        super(nome);
+        this.razaoSocial = nome;
+        this.cnpj = cnpj;
+    }
+
+    public String getNome() {
+        return razaoSocial;
+    }
+
+    public void setNome(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -32,7 +50,11 @@ public class ClientePessoaJuridica extends Cliente implements Identificavel {
 
     @Override
     public String toString() {
-        return "[nome:'" + super.nome + '\'' + ", CNPJ:'"+ cnpj +'\''+']';
+        return "[Razão social:'" + razaoSocial + '\'' + ", CNPJ:'"+ cnpj +'\''+']';
     }
 
+    @Override
+    public String mostrarInformacoes() {
+        return "Cliente Pessoa Jurídica: Razão Social = " + razaoSocial + ", CNPJ = " + cnpj;
+    }
 }
