@@ -11,7 +11,6 @@ public class VeiculoFactory {
             return new Veiculo(marca, modelo, placa, tipo);
         }
         return null;
-
     }
 
     public static boolean veiculoValidado(String marca, String modelo, String placa) {

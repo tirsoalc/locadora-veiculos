@@ -1,5 +1,6 @@
 import factory.ClienteFactory_EM_TESTE;
 import model.Aluguel;
+import model.cliente.Cliente;
 import model.cliente.ClientePessoaFisica;
 import model.cliente.ClientePessoaJuridica;
 import model.veiculo.TipoVeiculo;
@@ -52,6 +53,14 @@ public class Testes {
 
         ClienteFactory_EM_TESTE fabricaCliente = new ClienteFactory_EM_TESTE();
         System.out.println(fabricaCliente.criarCliente("PF", "Nome Teste", "1234").mostrarInformacoes());
+        Cliente clienteTeste1 = fabricaCliente.criarCliente("PJ", "Nome Teste", "1234");
+        Cliente clienteTeste = fabricaCliente.criarCliente("PF", null, "1234");
+        System.out.println(clienteTeste1.mostrarInformacoes());
+
+        if (clienteTeste != null && clienteTeste1 != null) {
+            clienteTeste1.mostrarInformacoes();
+            clienteTeste.mostrarInformacoes();
+        }
 
         System.out.println(aluguelRepository.getAlugueisCadastrados());
     }
