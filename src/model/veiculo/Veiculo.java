@@ -27,6 +27,10 @@ public class Veiculo implements Identificavel {
         this.disponivel = disponivel;
     }
 
+    public TipoVeiculo getTipo() {
+        return tipoVeiculo;
+    }
+
     @Override
     public String getId() {
         return placa;
