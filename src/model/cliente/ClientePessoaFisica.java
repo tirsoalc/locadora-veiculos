@@ -26,7 +26,7 @@ public class ClientePessoaFisica extends Cliente implements Identificavel {
     }
 
     @Override
-    public Object getId() {
+    public String getId() {
         return cpf;
     }
 

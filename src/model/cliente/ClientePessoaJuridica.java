@@ -13,7 +13,7 @@ public class ClientePessoaJuridica extends Cliente implements Identificavel {
     }
 
     @Override
-    public Object getId() {
+    public String getId() {
         return cnpj;
     }
 

@@ -1,5 +1,5 @@
 package model;
 
 public interface Identificavel {
-    Object getId();
+    String getId();
 }

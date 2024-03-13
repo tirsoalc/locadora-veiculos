@@ -24,7 +24,7 @@ public class Aluguel implements Identificavel{
     }
 
     @Override
-    public Object getId() {
-        return idAluguel;
+    public String getId() {
+        return String.valueOf(idAluguel);
     }
 }

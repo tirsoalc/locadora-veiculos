@@ -28,7 +28,7 @@ public class Veiculo implements Identificavel {
     }
 
     @Override
-    public Object getId() {
+    public String getId() {
         return placa;
     }
 
