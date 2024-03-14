@@ -13,11 +13,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interactivity {
-    AluguelRepository aluguelRepository = new AluguelRepository();
-    ClienteRepository<ClientePessoaFisica> pessoaFisicaRepository = new ClienteRepository<>();
-    ClienteRepository<ClientePessoaJuridica> pessoaJuridicaRepository = new ClienteRepository<>();
-    VeiculoRepository veiculoRepository = new VeiculoRepository();
+    static AluguelRepository aluguelRepository = new AluguelRepository();
+    static ClienteRepository<ClientePessoaFisica> pessoaFisicaRepository = new ClienteRepository<>();
+    static ClienteRepository<ClientePessoaJuridica> pessoaJuridicaRepository = new ClienteRepository<>();
+    static VeiculoRepository veiculoRepository = new VeiculoRepository();
     static Scanner scanner = new Scanner(System.in);
+
+    static String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
 
     public static void mainMenu() {
         int menuOption = 0;
@@ -48,10 +50,12 @@ public class Interactivity {
                         break;
 
                     default:
-                        System.out.print("\nOpção inválida selecionada!");
+                        System.out.print(opcaoInvalida);
+                        scanner.nextLine();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("\nPor favor, digite o número da opção desejada");
+                scanner.nextLine();
+                System.out.print(opcaoInvalida);
                 scanner.nextLine();
             }
 
@@ -89,7 +93,7 @@ public class Interactivity {
             }
 
             if (menuOption != 4) {
-                System.out.print("\nPressione enter para continuar");
+                System.out.print("\nPressione enter para continuar.");
                 scanner.nextLine();
             }
 
@@ -127,7 +131,7 @@ public class Interactivity {
             }
 
             if (menuOption != 4) {
-                System.out.print("\nPressione enter para continuar");
+                System.out.print("\nPressione enter para continuar.");
                 scanner.nextLine();
             }
 
@@ -161,7 +165,7 @@ public class Interactivity {
             }
 
             if (menuOption != 3) {
-                System.out.print("\nPressione enter para continuar");
+                System.out.print("\nPressione enter para continuar.");
                 scanner.nextLine();
             }
 
