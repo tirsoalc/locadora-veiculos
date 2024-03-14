@@ -3,6 +3,7 @@ package view;
 import controller.ClienteController;
 import model.cliente.Cliente;
 import validador.Validador;
+import view.utils.Inputs;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -56,20 +57,20 @@ public class InteractivityCliente {
         return opcaoInvalida;
     }
 
-    private String inputHelper(String textoOutput) {
-        String dado;
-        System.out.print("\n" + textoOutput);
-        dado = scanner.nextLine();
-        return dado;
-    }
+//    private String Inputs.inputHelper(String textoOutput) {
+//        String dado;
+//        System.out.print("\n" + textoOutput);
+//        dado = scanner.nextLine();
+//        return dado;
+//    }
 
     public String cadastrarClientePF() {
-        String nome = inputHelper("Digite o nome: ");
+        String nome = Inputs.inputHelper("Digite o nome: ", scanner);
         if (!Validador.nomeValido(nome)) {
             return "Por favor, não deixe o nome do cliente em branco";
         }
 
-        String cpf = inputHelper("Digite o CPF: ");
+        String cpf = Inputs.inputHelper("Digite o CPF: ", scanner);
         if (!Validador.cpfValido(cpf)) {
             return "Por favor, digite um CPF válido (apenas 4 dígitos)";
         }
@@ -79,12 +80,12 @@ public class InteractivityCliente {
 
     public String cadastrarClientePJ() {
 
-        String razaoSocial = inputHelper("Digite a razão social: ");
+        String razaoSocial = Inputs.inputHelper("Digite a razão social: ", scanner);
         if (!Validador.nomeValido(razaoSocial)) {
             return "Por favor, não deixe o nome do cliente em branco";
         }
 
-        String cnpj = inputHelper("Digite o CNPJ: ");
+        String cnpj = Inputs.inputHelper("Digite o CNPJ: ", scanner);
         if (!Validador.cnpjValido(cnpj)) {
             return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
         }
@@ -102,7 +103,7 @@ public class InteractivityCliente {
     }
 
     public String alterarClientePF() {
-        String cpfAtual = inputHelper("Digite o CPF do cliente: ");
+        String cpfAtual = Inputs.inputHelper("Digite o CPF do cliente: ", scanner);
         if (!Validador.cpfValido(cpfAtual)) {
             return "Por favor, digite um CPF válido (apenas 4 dígitos numéricos)";
         }
@@ -112,8 +113,8 @@ public class InteractivityCliente {
             return "Cliente não encontrado no sistema.";
         }
 
-        String nome = inputHelper("Digite o novo nome: ");
-        String cpf = inputHelper("Digite o novo CPF: ");
+        String nome = Inputs.inputHelper("Digite o novo nome: ", scanner);
+        String cpf = Inputs.inputHelper("Digite o novo CPF: ", scanner);
         if (!Validador.cpfValido(cpf)) {
             return "Por favor, digite um CPF válido (apenas 4 dígitos numéricos)";
         }
@@ -126,7 +127,7 @@ public class InteractivityCliente {
     }
 
     public String alterarClientePJ() {
-        String cnpjAtual = inputHelper("Digite o CNPJ do cliente: ");
+        String cnpjAtual = Inputs.inputHelper("Digite o CNPJ do cliente: ", scanner);
         if (!Validador.cnpjValido(cnpjAtual)) {
             return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
         }
@@ -136,8 +137,8 @@ public class InteractivityCliente {
             return "Cliente não encontrado no sistema.";
         }
 
-        String razaoSocial = inputHelper("Digite a nova razão social: ");
-        String cnpj = inputHelper("Digite o novo CNPJ: ");
+        String razaoSocial = Inputs.inputHelper("Digite a nova razão social: ", scanner);
+        String cnpj = Inputs.inputHelper("Digite o novo CNPJ: ", scanner);
         if (!Validador.cnpjValido(cnpj)) {
             return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
         }
@@ -152,7 +153,7 @@ public class InteractivityCliente {
 
 
     public String buscarCliente() {
-        String documento = inputHelper("Digite o documento do cliente: ");
+        String documento = Inputs.inputHelper("Digite o documento do cliente: ", scanner);
         if (!Validador.cpfValido(documento) && !Validador.cnpjValido(documento)) {
             return "O documento informado não é válido";
         }

@@ -31,6 +31,17 @@ public class Menus {
         System.out.println(menuStr);
     }
 
+    public static void showVeiculosTipoMenu() {
+        String menuStr = """
+                
+                Informe o tipo do veículo:
+                    1 - Pequeno
+                    2 - Médio
+                    3 - SUV
+                """;
+        System.out.println(menuStr);
+    }
+
     public static void showClientesMenu() {
         String menuStr = """
                       

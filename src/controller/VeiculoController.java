@@ -1,12 +1,38 @@
 package controller;
 
+import model.veiculo.TipoVeiculo;
+import model.veiculo.Veiculo;
+import repository.veiculo.VeiculoRepositoryInterface;
+
 public class VeiculoController {
-    public static void cadastrarVeiculo(){
+    VeiculoRepositoryInterface veiculos;
+
+    public VeiculoController(VeiculoRepositoryInterface veiculos) {
+        this.veiculos = veiculos;
     }
 
-    public static void alterarVeiculo(){
+    public String cadastrarVeiculo(String marca, String modelo, String placa, TipoVeiculo tipoVeiculo){
+        Veiculo veiculo = new Veiculo(marca, modelo, placa, tipoVeiculo);
+        if (buscarVeiculo(placa) != null) {
+            return "O veículo já está cadastrado no sistema";
+        }
+
+        veiculos.adicionarVeiculo(veiculo);
+        return "Veículo cadastrado com sucesso";
     }
 
-    public static void buscarVeiculo(){
+    public String alterarVeiculo(Veiculo veiculo, String marca, String modelo, String placa, TipoVeiculo tipoVeiculo){
+        veiculo.alterarInformacoes(marca,modelo,placa,tipoVeiculo);
+        return "Alteração realizada com sucesso";
+    }
+
+    public Veiculo buscarVeiculo(String placa){
+        return veiculos.buscarVeiculo(placa);
+    }
+
+    public boolean placaDisponivel(String placa, Veiculo veiculoAtual) {
+        Veiculo veiculoExistente = buscarVeiculo(placa);
+
+        return veiculoExistente == null || veiculoExistente.equals(veiculoAtual);
     }
 }

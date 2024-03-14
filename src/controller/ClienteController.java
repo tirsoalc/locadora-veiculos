@@ -39,8 +39,8 @@ public class ClienteController{
         return "Alteração realizada com sucesso.";
     }
 
-    public Cliente buscarCliente(String identificador){
-        return clientes.buscarCliente(identificador);
+    public Cliente buscarCliente(String documento){
+        return clientes.buscarCliente(documento);
     }
 
     public boolean cpfCnpjDisponivel(String documento, Cliente clienteAtual) {

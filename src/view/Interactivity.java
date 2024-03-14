@@ -18,11 +18,13 @@ public class Interactivity {
     ClienteRepository<ClientePessoaJuridica> pessoaJuridicaRepository = new ClienteRepository<>();
     VeiculoRepository veiculoRepository = new VeiculoRepository();
     InteractivityCliente interactivityCliente;
+    InteractivityVeiculo interactivityVeiculo;
     Scanner scanner = new Scanner(System.in);
 
 
-    public Interactivity(InteractivityCliente interactivityCliente) {
+    public Interactivity(InteractivityCliente interactivityCliente, InteractivityVeiculo interactivityVeiculo) {
         this.interactivityCliente = interactivityCliente;
+        this.interactivityVeiculo = interactivityVeiculo;
     }
 
     String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
@@ -80,15 +82,15 @@ public class Interactivity {
 
             switch (menuOption) {
                 case 1: //Buscar veículo
-                    VeiculoController.buscarVeiculo();
+                    interactivityVeiculo.buscarVeiculo();
                     break;
 
                 case 2: //Cadastrar veículo
-                    VeiculoController.cadastrarVeiculo();
+                    interactivityVeiculo.cadastrarVeiculo();
                     break;
 
                 case 3: //Alterar veículo
-                    VeiculoController.alterarVeiculo();
+                    interactivityVeiculo.alterarVeiculo();
                     break;
 
                 case 4: //Voltar

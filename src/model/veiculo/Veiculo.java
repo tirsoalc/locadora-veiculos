@@ -36,6 +36,13 @@ public class Veiculo implements Identificavel {
         return placa;
     }
 
+    public void alterarInformacoes(String marca, String modelo, String placa, TipoVeiculo tipoVeiculo) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.placa = placa;
+        this.tipoVeiculo = tipoVeiculo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,5 +59,9 @@ public class Veiculo implements Identificavel {
     @Override
     public String toString() {
         return "[marca:'" + marca + '\''+", modelo:'"+modelo+'\''+", placa:'"+placa+'\''+']';
+    }
+
+    public String mostrarInformacoes() {
+        return "Veículo: Marca = " + marca + ", Modelo = " + modelo + ", Placa: " + placa;
     }
 }

@@ -12,4 +12,12 @@ public class Validador {
     public static boolean cnpjValido(String cnpj) {
         return cnpj != null && cnpj.matches("^\\d{4}/\\d$");
     }
+
+    public static boolean placaValida(String placa) {
+        return placa != null && placa.matches("^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$");
+    }
+
+    public static boolean alcancePermitido(int limiteBaixoIncluso, int limiteAltoIncluso, int numero) {
+        return numero >= limiteBaixoIncluso && numero <= limiteAltoIncluso;
+    }
 }
