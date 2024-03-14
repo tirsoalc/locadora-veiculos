@@ -13,15 +13,21 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interactivity {
-    static AluguelRepository aluguelRepository = new AluguelRepository();
-    static ClienteRepository<ClientePessoaFisica> pessoaFisicaRepository = new ClienteRepository<>();
-    static ClienteRepository<ClientePessoaJuridica> pessoaJuridicaRepository = new ClienteRepository<>();
-    static VeiculoRepository veiculoRepository = new VeiculoRepository();
-    static Scanner scanner = new Scanner(System.in);
+    AluguelRepository aluguelRepository = new AluguelRepository();
+    ClienteRepository<ClientePessoaFisica> pessoaFisicaRepository = new ClienteRepository<>();
+    ClienteRepository<ClientePessoaJuridica> pessoaJuridicaRepository = new ClienteRepository<>();
+    VeiculoRepository veiculoRepository = new VeiculoRepository();
+    InteractivityCliente interactivityCliente;
+    Scanner scanner = new Scanner(System.in);
 
-    static String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
 
-    public static void mainMenu() {
+    public Interactivity(InteractivityCliente interactivityCliente) {
+        this.interactivityCliente = interactivityCliente;
+    }
+
+    String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
+
+    public void mainMenu() {
         int menuOption = 0;
 
         do {
@@ -62,7 +68,7 @@ public class Interactivity {
         } while (menuOption != 4);
     }
 
-    public static void veiculosMenu() {
+    public void veiculosMenu() {
         int menuOption;
 
         do {
@@ -100,7 +106,7 @@ public class Interactivity {
         } while (menuOption != 4);
     }
 
-    public static void clientesMenu() {
+    public void clientesMenu() {
         int menuOption;
 
         do {
@@ -112,15 +118,15 @@ public class Interactivity {
 
             switch (menuOption) {
                 case 1: //Buscar cliente
-                    ClienteController.buscarCliente();
+                    System.out.println(interactivityCliente.buscarCliente());
                     break;
 
                 case 2: //Cadastrar cliente
-                    ClienteController.cadastrarCliente();
+                    System.out.println(interactivityCliente.cadastrarCliente());
                     break;
 
                 case 3: //Alterar cliente
-                    ClienteController.alterarCliente();
+                    System.out.println(interactivityCliente.alterarCliente());
                     break;
 
                 case 4: //Voltar
@@ -138,7 +144,7 @@ public class Interactivity {
         } while (menuOption != 4);
     }
 
-    public static void alugueisMenu() {
+    public void alugueisMenu() {
         int menuOption;
 
         do {

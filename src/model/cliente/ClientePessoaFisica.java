@@ -14,17 +14,15 @@ public class ClientePessoaFisica implements Cliente, Identificavel {
         this.cpf = cpf;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     @Override
     public String getId() {
         return cpf;
+    }
+
+    @Override
+    public void alterarInformacoes(String nome, String documento) {
+        this.nome = nome;
+        this.cpf = documento;
     }
 
     @Override

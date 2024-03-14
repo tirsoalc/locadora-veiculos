@@ -1,17 +1,25 @@
 package view;
 
-import model.cliente.ClientePessoaFisica;
-import model.cliente.ClientePessoaJuridica;
+import controller.ClienteController;
+import model.cliente.Cliente;
+import validador.Validador;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InteractivityCliente {
-    static Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
+    ClienteController clienteController;
 
-    public static void cadastrarCliente() {
+
+    public InteractivityCliente(ClienteController clienteController) {
+        this.clienteController = clienteController;
+    }
+
+    String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
+
+    public int tipoClienteMenu() {
         int opcaoTipo = 0;
-
         do {
             System.out.println("""
                                     
@@ -27,52 +35,132 @@ public class InteractivityCliente {
                 scanner.nextLine();
 
                 if (opcaoTipo != 1 && opcaoTipo != 2) {
-                    System.out.print(Interactivity.opcaoInvalida);
+                    System.out.print(opcaoInvalida);
                     scanner.nextLine();
                 }
 
             } catch (InputMismatchException e) {
-                System.out.println(Interactivity.opcaoInvalida);
+                System.out.println(opcaoInvalida);
                 scanner.nextLine();
             }
 
         } while (opcaoTipo != 1 && opcaoTipo != 2);
-
-        if (opcaoTipo == 1) cadastrarClientePF();
-        else cadastrarClientePJ();
-
+        return opcaoTipo;
     }
 
-    public static void cadastrarClientePF() {
-        String nome;
-        String cpf;
+    public String cadastrarCliente() {
+        int opcaoTipo = tipoClienteMenu();
 
-        System.out.print("\nDigite o nome: ");
-        nome = scanner.nextLine();
-
-        System.out.print("Digite o CPF: ");
-        cpf = scanner.nextLine();
-
-        Interactivity.pessoaFisicaRepository.adicionarCliente(new ClientePessoaFisica(nome, cpf));
+        if (opcaoTipo == 1) return cadastrarClientePF();
+        if (opcaoTipo == 2) return cadastrarClientePJ();
+        return opcaoInvalida;
     }
 
-    public static void cadastrarClientePJ() {
-        String nome;
-        String cnpj;
-
-        System.out.print("\nDigite o nome: ");
-        nome = scanner.nextLine();
-
-        System.out.print("Digite o CNPJ: ");
-        cnpj = scanner.nextLine();
-
-        Interactivity.pessoaJuridicaRepository.adicionarCliente(new ClientePessoaJuridica(nome, cnpj));
+    private String inputHelper(String textoOutput) {
+        String dado;
+        System.out.print("\n" + textoOutput);
+        dado = scanner.nextLine();
+        return dado;
     }
 
-    public static void alterarCliente() {
+    public String cadastrarClientePF() {
+        String nome = inputHelper("Digite o nome: ");
+        if (!Validador.nomeValido(nome)) {
+            return "Por favor, não deixe o nome do cliente em branco";
+        }
+
+        String cpf = inputHelper("Digite o CPF: ");
+        if (!Validador.cpfValido(cpf)) {
+            return "Por favor, digite um CPF válido (apenas 4 dígitos)";
+        }
+
+        return clienteController.cadastrarClientePF(nome, cpf);
     }
 
-    public static void buscarCliente() {
+    public String cadastrarClientePJ() {
+
+        String razaoSocial = inputHelper("Digite a razão social: ");
+        if (!Validador.nomeValido(razaoSocial)) {
+            return "Por favor, não deixe o nome do cliente em branco";
+        }
+
+        String cnpj = inputHelper("Digite o CNPJ: ");
+        if (!Validador.cnpjValido(cnpj)) {
+            return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
+        }
+
+        return clienteController.cadastrarClientePJ(razaoSocial, cnpj);
+    }
+
+
+    public String alterarCliente() {
+        int opcaoTipoCliente = tipoClienteMenu();
+
+        if (opcaoTipoCliente == 1) return alterarClientePF();
+        if (opcaoTipoCliente == 2) return alterarClientePJ();
+        return opcaoInvalida;
+    }
+
+    public String alterarClientePF() {
+        String cpfAtual = inputHelper("Digite o CPF do cliente: ");
+        if (!Validador.cpfValido(cpfAtual)) {
+            return "Por favor, digite um CPF válido (apenas 4 dígitos numéricos)";
+        }
+
+        Cliente cliente = clienteController.buscarCliente(cpfAtual);
+        if (cliente == null) {
+            return "Cliente não encontrado no sistema.";
+        }
+
+        String nome = inputHelper("Digite o novo nome: ");
+        String cpf = inputHelper("Digite o novo CPF: ");
+        if (!Validador.cpfValido(cpf)) {
+            return "Por favor, digite um CPF válido (apenas 4 dígitos numéricos)";
+        }
+
+        if (!clienteController.cpfCnpjDisponivel(cpf, cliente)) {
+            return "O CPF digitado já está cadastrado para outro cliente.";
+        }
+
+        return clienteController.alterarCliente(cliente, nome, cpf);
+    }
+
+    public String alterarClientePJ() {
+        String cnpjAtual = inputHelper("Digite o CNPJ do cliente: ");
+        if (!Validador.cnpjValido(cnpjAtual)) {
+            return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
+        }
+
+        Cliente cliente = clienteController.buscarCliente(cnpjAtual);
+        if (cliente == null) {
+            return "Cliente não encontrado no sistema.";
+        }
+
+        String razaoSocial = inputHelper("Digite a nova razão social: ");
+        String cnpj = inputHelper("Digite o novo CNPJ: ");
+        if (!Validador.cnpjValido(cnpj)) {
+            return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
+        }
+
+        if (!clienteController.cpfCnpjDisponivel(cnpj, cliente)) {
+            return "O CNPJ digitado já está cadastrado para outro cliente.";
+        }
+
+
+        return clienteController.alterarCliente(cliente, razaoSocial, cnpj);
+    }
+
+
+    public String buscarCliente() {
+        String documento = inputHelper("Digite o documento do cliente: ");
+        if (!Validador.cpfValido(documento) && !Validador.cnpjValido(documento)) {
+            return "O documento informado não é válido";
+        }
+        Cliente cliente = clienteController.buscarCliente(documento);
+        if (cliente == null) {
+            return "Cliente não encontrado no sistema.";
+        }
+        return cliente.mostrarInformacoes();
     }
 }
 

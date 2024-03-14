@@ -14,16 +14,10 @@ public class ClientePessoaJuridica implements Cliente, Identificavel {
         this.cnpj = cnpj;
     }
 
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
-
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    @Override
+    public void alterarInformacoes(String nome, String documento) {
+        this.razaoSocial = nome;
+        this.cnpj = documento;
     }
 
     @Override

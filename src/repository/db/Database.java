@@ -15,14 +15,6 @@ public class Database<T> implements DatabaseInterface<T> {
         lista.remove(item);
     }
 
-//    public void buscarItem(String id) {
-
-//    }
-//    public void buscarItem(Integer id) {
-
-//    }
-//    // ou implementar uma lógica para transformar um param Object x -> String String.valueOf(x) com catch Exception{printStackTrace()}
-
     public T buscarItem(String id) {
         try {
             for (T item : lista) {
