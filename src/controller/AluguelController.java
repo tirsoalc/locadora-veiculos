@@ -1,6 +1,10 @@
 package controller;
 
 public class AluguelController {
+    public String cadastrarAluguel () {
+        return "A";
+    }
+
     public static void alugarVeiculo(){
     }
 

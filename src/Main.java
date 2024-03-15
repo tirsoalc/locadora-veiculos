@@ -1,6 +1,5 @@
 import controller.AluguelController;
 import controller.ClienteController;
-import controller.LocadoraVeiculo;
 import controller.VeiculoController;
 import model.cliente.Cliente;
 import repository.aluguel.AluguelRepository;
@@ -26,7 +25,7 @@ public class Main {
         InteractivityVeiculo interactivityVeiculo = new InteractivityVeiculo(veiculoController);
 //        InteractivityAluguel interactivityAluguel = new InteractivityAluguel(aluguelController);
 //        InteractivityLocadoraVeiculo interactivityLocadoraVeiculo = new InteractivityLocadoraVeiculo(locadoraVeiculo);
-        Interactivity interactivity = new Interactivity(interactivityCliente);
+        Interactivity interactivity = new Interactivity(interactivityCliente, interactivityVeiculo);
         interactivity.mainMenu();
     }
 }

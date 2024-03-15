@@ -1,6 +1,8 @@
 package view;
 
 import controller.ClienteController;
+import controller.input.InputController;
+import controller.input.MensagemCadastroCliente;
 import model.cliente.Cliente;
 import validador.Validador;
 import view.utils.Inputs;
@@ -22,13 +24,7 @@ public class InteractivityCliente {
     public int tipoClienteMenu() {
         int opcaoTipo = 0;
         do {
-            System.out.println("""
-                                    
-                    Informe o tipo do cliente:
-                    1 - Pessoa Física
-                    2 - Pessoa jurídica
-                    """);
-
+            Menus.showClienteTipoMenu();
             System.out.print("Selecione uma opção: ");
 
             try {
@@ -57,111 +53,123 @@ public class InteractivityCliente {
         return opcaoInvalida;
     }
 
-//    private String Inputs.inputHelper(String textoOutput) {
-//        String dado;
-//        System.out.print("\n" + textoOutput);
-//        dado = scanner.nextLine();
-//        return dado;
-//    }
-
     public String cadastrarClientePF() {
-        String nome = Inputs.inputHelper("Digite o nome: ", scanner);
-        if (!Validador.nomeValido(nome)) {
-            return "Por favor, não deixe o nome do cliente em branco";
-        }
+        try {
+            String nome = InputController.obterNomeValidado(
+                    MensagemCadastroCliente.NOME_CADASTRO.getMensagem(),
+                    scanner);
 
-        String cpf = Inputs.inputHelper("Digite o CPF: ", scanner);
-        if (!Validador.cpfValido(cpf)) {
-            return "Por favor, digite um CPF válido (apenas 4 dígitos)";
-        }
+            String cpf = InputController.obterCpfValidado(
+                    MensagemCadastroCliente.CPF_CADASTRO.getMensagem(),
+                    scanner);
 
-        return clienteController.cadastrarClientePF(nome, cpf);
+            return clienteController.cadastrarClientePF(nome, cpf);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
     public String cadastrarClientePJ() {
+        try {
+            String razaoSocial = InputController.obterRazaoSocialValidada(
+                    MensagemCadastroCliente.RAZAOSOCIAL_CADASTRO.getMensagem(),
+                    scanner);
 
-        String razaoSocial = Inputs.inputHelper("Digite a razão social: ", scanner);
-        if (!Validador.nomeValido(razaoSocial)) {
-            return "Por favor, não deixe o nome do cliente em branco";
+            String cnpj = InputController.obterCnpjValidado(
+                    MensagemCadastroCliente.CNPJ_CADASTRO.getMensagem(),
+                    scanner);
+
+            return clienteController.cadastrarClientePJ(razaoSocial, cnpj);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-
-        String cnpj = Inputs.inputHelper("Digite o CNPJ: ", scanner);
-        if (!Validador.cnpjValido(cnpj)) {
-            return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
-        }
-
-        return clienteController.cadastrarClientePJ(razaoSocial, cnpj);
     }
 
 
     public String alterarCliente() {
         int opcaoTipoCliente = tipoClienteMenu();
-
         if (opcaoTipoCliente == 1) return alterarClientePF();
         if (opcaoTipoCliente == 2) return alterarClientePJ();
         return opcaoInvalida;
     }
 
     public String alterarClientePF() {
-        String cpfAtual = Inputs.inputHelper("Digite o CPF do cliente: ", scanner);
-        if (!Validador.cpfValido(cpfAtual)) {
-            return "Por favor, digite um CPF válido (apenas 4 dígitos numéricos)";
-        }
+        try {
+            String cpfAtual = InputController.obterCpfValidado(
+                    MensagemCadastroCliente.CPF_CADASTRO.getMensagem(),
+                    scanner);
 
-        Cliente cliente = clienteController.buscarCliente(cpfAtual);
-        if (cliente == null) {
-            return "Cliente não encontrado no sistema.";
-        }
+            Cliente cliente = clienteController.buscarCliente(cpfAtual);
+            if (cliente == null) {
+                return MensagemCadastroCliente.CLIENTE_NAO_ENCONTRADO.getMensagem();
+            }
 
-        String nome = Inputs.inputHelper("Digite o novo nome: ", scanner);
-        String cpf = Inputs.inputHelper("Digite o novo CPF: ", scanner);
-        if (!Validador.cpfValido(cpf)) {
-            return "Por favor, digite um CPF válido (apenas 4 dígitos numéricos)";
-        }
+            String nome = Inputs.inputHelper(
+                    MensagemCadastroCliente.NOME_ALTERAR.getMensagem(),
+                    scanner);
 
-        if (!clienteController.cpfCnpjDisponivel(cpf, cliente)) {
-            return "O CPF digitado já está cadastrado para outro cliente.";
-        }
+            String cpf = Inputs.inputHelper(
+                    MensagemCadastroCliente.CPF_ALTERAR.getMensagem(),
+                    scanner);
 
-        return clienteController.alterarCliente(cliente, nome, cpf);
+            if (!clienteController.cpfCnpjDisponivel(cpf, cliente)) {
+                return MensagemCadastroCliente.CPF_JA_EXISTENTE.getMensagem();
+            }
+
+            return clienteController.alterarCliente(cliente, nome, cpf);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
     public String alterarClientePJ() {
-        String cnpjAtual = Inputs.inputHelper("Digite o CNPJ do cliente: ", scanner);
-        if (!Validador.cnpjValido(cnpjAtual)) {
-            return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
+
+        try {
+            String cnpjAtual = InputController.obterCnpjValidado(
+                    MensagemCadastroCliente.CNPJ_CADASTRO.getMensagem(),
+                    scanner);
+
+            Cliente cliente = clienteController.buscarCliente(cnpjAtual);
+            if (cliente == null) {
+                return MensagemCadastroCliente.CLIENTE_NAO_ENCONTRADO.getMensagem();
+            }
+
+            String razaoSocial = Inputs.inputHelper(
+                    MensagemCadastroCliente.RAZAOSOCIAL_ALTERAR.getMensagem(),
+                    scanner);
+
+            String cnpj = Inputs.inputHelper(
+                    MensagemCadastroCliente.CNPJ_ALTERAR.getMensagem(),
+                    scanner);
+
+            if (!clienteController.cpfCnpjDisponivel(cnpj, cliente)) {
+                return MensagemCadastroCliente.CNPJ_JA_EXISTENTE.getMensagem();
+            }
+            return clienteController.alterarCliente(cliente, razaoSocial, cnpj);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-
-        Cliente cliente = clienteController.buscarCliente(cnpjAtual);
-        if (cliente == null) {
-            return "Cliente não encontrado no sistema.";
-        }
-
-        String razaoSocial = Inputs.inputHelper("Digite a nova razão social: ", scanner);
-        String cnpj = Inputs.inputHelper("Digite o novo CNPJ: ", scanner);
-        if (!Validador.cnpjValido(cnpj)) {
-            return "Por favor, digite um CNPJ válido (Exemplo de formato válido: 0123/4)";
-        }
-
-        if (!clienteController.cpfCnpjDisponivel(cnpj, cliente)) {
-            return "O CNPJ digitado já está cadastrado para outro cliente.";
-        }
-
-
-        return clienteController.alterarCliente(cliente, razaoSocial, cnpj);
     }
 
-
     public String buscarCliente() {
-        String documento = Inputs.inputHelper("Digite o documento do cliente: ", scanner);
-        if (!Validador.cpfValido(documento) && !Validador.cnpjValido(documento)) {
-            return "O documento informado não é válido";
+        try {
+            String documento = Inputs.inputHelper(
+                    MensagemCadastroCliente.DOCUMENTO_CADASTRO.getMensagem(),
+                    scanner);
+
+            if (!Validador.cpfValido(documento) && !Validador.cnpjValido(documento)) {
+                return MensagemCadastroCliente.DOCUMENTO_ERRO.getMensagem();
+            }
+
+            Cliente cliente = clienteController.buscarCliente(documento);
+
+            if (cliente == null) {
+                return MensagemCadastroCliente.CLIENTE_NAO_ENCONTRADO.getMensagem();
+            }
+            return cliente.mostrarInformacoes();
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-        Cliente cliente = clienteController.buscarCliente(documento);
-        if (cliente == null) {
-            return "Cliente não encontrado no sistema.";
-        }
-        return cliente.mostrarInformacoes();
     }
 }
 

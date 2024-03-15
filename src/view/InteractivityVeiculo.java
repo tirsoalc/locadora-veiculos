@@ -1,6 +1,8 @@
 package view;
 
 import controller.VeiculoController;
+import controller.input.InputController;
+import controller.input.MensagemCadastroVeiculo;
 import model.veiculo.TipoVeiculo;
 import model.veiculo.Veiculo;
 import validador.Validador;
@@ -19,24 +21,30 @@ public class InteractivityVeiculo {
     }
 
     public String cadastrarVeiculo() {
-        String marca = Inputs.inputHelper("Digite a marca do veículo: ", scanner);
-        if (!Validador.nomeValido(marca)) {
-            return "Por favor, não deixe a marca do veículo em branco.";
+
+        try {
+            String marca = InputController.obterMarcaValida(
+                    MensagemCadastroVeiculo.MARCA_CADASTRO.getMensagem(),
+                    scanner
+            );
+
+            String modelo = InputController.obterModeloValido(
+                    MensagemCadastroVeiculo.MODELO_CADASTRO.getMensagem(),
+                    scanner
+            );
+
+            String placa = InputController.obterPlacaValida(
+                    MensagemCadastroVeiculo.PLACA_CADASTRO.getMensagem(),
+                    scanner
+            );
+
+            TipoVeiculo tipoVeiculo = tipoVeiculoOpcao();
+
+            return veiculoController.cadastrarVeiculo(marca,modelo,placa,tipoVeiculo);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
 
-        String modelo = Inputs.inputHelper("Digite o modelo do veículo: ", scanner);
-        if (!Validador.nomeValido(modelo)) {
-            return "Por favor, não deixe o modelo do veículo em branco.";
-        }
-
-        String placa = Inputs.inputHelper("Digite a placa do veículo: ", scanner);
-        if (!Validador.placaValida(placa)) {
-            return "Por favor, digite uma placa válida (Exemplo: ABC0123 ou ABC0D12)";
-        }
-
-        TipoVeiculo tipoVeiculo = tipoVeiculoOpcao();
-
-        return veiculoController.cadastrarVeiculo(marca,modelo,placa,tipoVeiculo);
     }
 
     public TipoVeiculo tipoVeiculoOpcao() {
@@ -49,7 +57,7 @@ public class InteractivityVeiculo {
                 opcaoTipo = scanner.nextInt();
                 scanner.nextLine();
 
-                if (!Validador.alcancePermitido(1,3,opcaoTipo)) {
+                if (!Validador.alcanceOpcaoPermitida(1,3,opcaoTipo)) {
                     System.out.print(opcaoInvalida);
                     scanner.nextLine();
                 }
@@ -59,7 +67,7 @@ public class InteractivityVeiculo {
                 scanner.nextLine();
             }
 
-        } while (!Validador.alcancePermitido(1,3,opcaoTipo));
+        } while (!Validador.alcanceOpcaoPermitida(1,3,opcaoTipo));
 
         return switch (opcaoTipo) {
             case 1 -> TipoVeiculo.PEQUENO;
@@ -70,41 +78,63 @@ public class InteractivityVeiculo {
     }
 
     public String alterarVeiculo() {
-        String placaAtual = Inputs.inputHelper("Informe a placa do carro: ",scanner);
-        if (!Validador.placaValida(placaAtual)) {
-            return "Por favor, digite uma placa válida (Exemplo: ABC0123 ou ABC0D12)";
+
+        try {
+            String placaAtual = InputController.obterPlacaValida(
+                    MensagemCadastroVeiculo.PLACA_CADASTRO.getMensagem(),
+                    scanner
+            );
+
+            Veiculo veiculo = veiculoController.buscarVeiculo(placaAtual);
+            if (veiculo == null) {
+                return "Veículo não encontrado no sistema";
+            }
+
+            String marca = InputController.obterMarcaValida(
+                    MensagemCadastroVeiculo.MARCA_ALTERAR.getMensagem()
+                    ,scanner
+            );
+
+            String modelo = InputController.obterModeloValido(
+                    MensagemCadastroVeiculo.MODELO_ALTERAR.getMensagem()
+                    ,scanner
+            );
+
+            String placa = InputController.obterPlacaValida(
+                    MensagemCadastroVeiculo.PLACA_ALTERAR.getMensagem()
+                    ,scanner
+            );
+
+            TipoVeiculo tipoVeiculo = tipoVeiculoOpcao();
+
+
+            if (!veiculoController.placaDisponivel(placa, veiculo)) {
+                return "A placa digitada já está cadastrada para outro veículo";
+            }
+
+            return veiculoController.alterarVeiculo(veiculo,marca,modelo,placa,tipoVeiculo);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
 
-        Veiculo veiculo = veiculoController.buscarVeiculo(placaAtual);
-        if (veiculo == null) {
-            return "Veículo não encontrado no sistema";
-        }
-
-        String marca = Inputs.inputHelper("Digite a marca do carro: ", scanner);
-        String modelo = Inputs.inputHelper("Digite o modelo do carro: ", scanner);
-        String placa = Inputs.inputHelper("Digite a placa do carro: ", scanner);
-        TipoVeiculo tipoVeiculo = tipoVeiculoOpcao();
-        if (!Validador.placaValida(placa)) {
-            return "Por favor, digite uma placa válida (Exemplo: ABC0123 ou ABC0D12)";
-        }
-
-        if (!veiculoController.placaDisponivel(placa, veiculo)) {
-            return "A placa digitada já está cadastrada para outro veículo";
-        }
-
-        return veiculoController.alterarVeiculo(veiculo,marca,modelo,placa,tipoVeiculo);
     }
 
     public String buscarVeiculo() {
-        String placa = Inputs.inputHelper("Digite a placa do carro: ", scanner);
-        if (!Validador.placaValida(placa)) {
-            return "A placa informada não é válida";
+        try {
+            String placa = InputController.obterPlacaValida(
+                    MensagemCadastroVeiculo.PLACA_CADASTRO.getMensagem()
+                    ,scanner
+            );
+
+            Veiculo veiculo = veiculoController.buscarVeiculo(placa);
+            if (veiculo == null) {
+                return MensagemCadastroVeiculo.VEICULO_NAO_ENCONTRADO.getMensagem();
+            }
+            return veiculo.mostrarInformacoes();
+
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
-        Veiculo veiculo = veiculoController.buscarVeiculo(placa);
-        if (veiculo == null) {
-            return "Veículo não encontrado no sistema.";
-        }
-        return veiculo.mostrarInformacoes();
     }
 
 }

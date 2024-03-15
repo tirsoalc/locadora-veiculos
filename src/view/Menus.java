@@ -55,6 +55,17 @@ public class Menus {
         System.out.println(menuStr);
     }
 
+    public static void showClienteTipoMenu() {
+        String menuStr = """
+                    
+                Informe o tipo do cliente:
+                1 - Pessoa Física
+                2 - Pessoa jurídica
+                """;
+
+        System.out.println(menuStr);
+    }
+
     public static void showAlugueisMenu() {
         String menuStr = """
                       

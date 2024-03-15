@@ -1,10 +1,8 @@
 package controller;
 
-import model.Identificavel;
 import model.cliente.Cliente;
 import model.cliente.ClientePessoaFisica;
 import model.cliente.ClientePessoaJuridica;
-import repository.cliente.ClienteRepository;
 import repository.cliente.ClienteRepositoryInterface;
 
 
@@ -45,7 +43,6 @@ public class ClienteController{
 
     public boolean cpfCnpjDisponivel(String documento, Cliente clienteAtual) {
         Cliente clienteExistente = buscarCliente(documento);
-
         return clienteExistente == null || clienteExistente.equals(clienteAtual);
     }
 }

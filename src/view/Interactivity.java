@@ -1,22 +1,11 @@
 package view;
 
 import controller.AluguelController;
-import controller.ClienteController;
-import controller.VeiculoController;
-import model.cliente.ClientePessoaFisica;
-import model.cliente.ClientePessoaJuridica;
-import repository.aluguel.AluguelRepository;
-import repository.cliente.ClienteRepository;
-import repository.veiculo.VeiculoRepository;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interactivity {
-    AluguelRepository aluguelRepository = new AluguelRepository();
-    ClienteRepository<ClientePessoaFisica> pessoaFisicaRepository = new ClienteRepository<>();
-    ClienteRepository<ClientePessoaJuridica> pessoaJuridicaRepository = new ClienteRepository<>();
-    VeiculoRepository veiculoRepository = new VeiculoRepository();
     InteractivityCliente interactivityCliente;
     InteractivityVeiculo interactivityVeiculo;
     Scanner scanner = new Scanner(System.in);
@@ -82,15 +71,15 @@ public class Interactivity {
 
             switch (menuOption) {
                 case 1: //Buscar veículo
-                    interactivityVeiculo.buscarVeiculo();
+                    System.out.println(interactivityVeiculo.buscarVeiculo());
                     break;
 
                 case 2: //Cadastrar veículo
-                    interactivityVeiculo.cadastrarVeiculo();
+                    System.out.println(interactivityVeiculo.cadastrarVeiculo());
                     break;
 
                 case 3: //Alterar veículo
-                    interactivityVeiculo.alterarVeiculo();
+                    System.out.println(interactivityVeiculo.alterarVeiculo());
                     break;
 
                 case 4: //Voltar
