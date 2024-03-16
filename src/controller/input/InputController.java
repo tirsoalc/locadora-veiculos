@@ -3,6 +3,8 @@ package controller.input;
 import validador.Validador;
 import view.utils.Inputs;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Scanner;
 
 public class InputController {
@@ -60,5 +62,22 @@ public class InputController {
             throw new IllegalArgumentException(MensagemCadastroVeiculo.PLACA_ERRO.getMensagem());
         }
         return placa;
+    }
+
+    public static String obterLocalValidado(String mensagem, Scanner scanner) {
+        String local = Inputs.inputHelper(mensagem, scanner);
+        if (!Validador.nomeValido(local)) {
+            throw new IllegalArgumentException(MensagemCadastroAluguel.LOCAL_ERRO.getMensagem());
+        }
+        return local;
+    }
+
+    public static Date obterDataValidada(String mensagem, Scanner scanner) throws ParseException {
+        String dataStr = Inputs.inputHelper(mensagem, scanner);
+        if (!Validador.dataValida(dataStr)) {
+            throw new IllegalArgumentException(MensagemCadastroAluguel.DATA_ERRO.getMensagem());
+        }
+        Validador.dateFormat.setLenient(false);
+        return Validador.dateFormat.parse(dataStr.trim());
     }
 }

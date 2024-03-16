@@ -1,6 +1,11 @@
 package validador;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class Validador {
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
     public static boolean nomeValido(String nome) {
         return nome != null && !nome.isEmpty();
     }
@@ -19,5 +24,15 @@ public class Validador {
 
     public static boolean alcanceOpcaoPermitida(int limiteBaixoIncluso, int limiteAltoIncluso, int numero) {
         return numero >= limiteBaixoIncluso && numero <= limiteAltoIncluso;
+    }
+
+    public static boolean dataValida(String data) {
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(data.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
     }
 }

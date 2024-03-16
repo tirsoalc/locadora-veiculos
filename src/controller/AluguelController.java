@@ -1,32 +1,41 @@
 package controller;
 
-/**
- * Esta classe é responsável por controlar as operações de aluguel de veículos.
- */
+import model.Aluguel;
+import model.cliente.Cliente;
+import model.veiculo.Veiculo;
+import repository.aluguel.AluguelRepositoryInterface;
+
+import java.util.Date;
+
+//Esta classe é responsável por controlar as operações de aluguel de veículos.
 public class AluguelController {
+    AluguelRepositoryInterface alugueis;
+    ClienteController clienteController;
+    VeiculoController veiculoController;
 
-    /**
-     * Este método é responsável por cadastrar um aluguel.
-     * @return Uma string indicando o status do cadastro do aluguel.
-     */
-    public String cadastrarAluguel() {
-        // Aqui você pode adicionar a lógica para cadastrar um aluguel.
-        return "Aluguel cadastrado com sucesso!";
+    public AluguelController(AluguelRepositoryInterface alugueis) {
+        this.alugueis = alugueis;
     }
 
-    /**
-     * Este método é responsável por alugar um veículo.
-     */
-    public static void alugarVeiculo() {
-        // Aqui você pode adicionar a lógica para alugar um veículo.
-        System.out.println("Veículo alugado com sucesso!");
+    //Este método é responsável por cadastrar um aluguel.
+    public String alugarVeiculo(String docCliente, String placaVeiculo, String local, Date dataAluguel, Date dataDevolucao) {
+        Cliente cliente = clienteController.buscarCliente(docCliente);
+        Veiculo veiculo = veiculoController.buscarVeiculo(placaVeiculo);
+
+        if (cliente == null)
+            return "Cliente não cadastrado no sistema.";
+        else if (veiculo == null)
+            return "Veículo não cadastrado no sistema.";
+
+        Aluguel aluguel = new Aluguel(veiculo, cliente, local, dataAluguel, dataDevolucao);
+        alugueis.adicionarAluguel(aluguel);
+
+        return "Aluguel cadastrado com sucesso.";
     }
 
-    /**
-     * Este método é responsável por devolver um veículo.
-     */
+    //Este método é responsável por devolver um veículo.
     public static void devolverVeiculo() {
         // Aqui você pode adicionar a lógica para devolver um veículo.
-        System.out.println("Veículo devolvido com sucesso!");
+        //System.out.println("Veículo devolvido com sucesso!");
     }
 }

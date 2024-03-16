@@ -4,6 +4,7 @@ import model.veiculo.TipoVeiculo;
 import model.veiculo.Veiculo;
 import repository.veiculo.VeiculoRepositoryInterface;
 
+//Esta classe é responsável por controlar as operações de veículos.
 public class VeiculoController {
     VeiculoRepositoryInterface veiculos;
 
@@ -11,6 +12,7 @@ public class VeiculoController {
         this.veiculos = veiculos;
     }
 
+    //Este método é responsável por cadastrar um aluguel
     public String cadastrarVeiculo(String marca, String modelo, String placa, TipoVeiculo tipoVeiculo){
         Veiculo veiculo = new Veiculo(marca, modelo, placa, tipoVeiculo);
         if (buscarVeiculo(placa) != null) {
@@ -21,11 +23,13 @@ public class VeiculoController {
         return "Veículo cadastrado com sucesso";
     }
 
+    //Este método é responsável por alterar um veículo
     public String alterarVeiculo(Veiculo veiculo, String marca, String modelo, String placa, TipoVeiculo tipoVeiculo){
         veiculo.alterarInformacoes(marca,modelo,placa,tipoVeiculo);
         return "Alteração realizada com sucesso";
     }
 
+    //Este método é responsável por buscar um veículo
     public Veiculo buscarVeiculo(String placa){
         return veiculos.buscarVeiculo(placa);
     }

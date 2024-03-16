@@ -8,12 +8,13 @@ import java.util.Scanner;
 public class Interactivity {
     InteractivityCliente interactivityCliente;
     InteractivityVeiculo interactivityVeiculo;
+    InteractivityAluguel interactivityAluguel;
     Scanner scanner = new Scanner(System.in);
 
-
-    public Interactivity(InteractivityCliente interactivityCliente, InteractivityVeiculo interactivityVeiculo) {
+    public Interactivity(InteractivityCliente interactivityCliente, InteractivityVeiculo interactivityVeiculo, InteractivityAluguel interactivityAluguel) {
         this.interactivityCliente = interactivityCliente;
         this.interactivityVeiculo = interactivityVeiculo;
+        this.interactivityAluguel = interactivityAluguel;
     }
 
     String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
@@ -147,11 +148,11 @@ public class Interactivity {
 
             switch (menuOption) {
                 case 1: //Alugar veículo
-                    AluguelController.alugarVeiculo();
+                    System.out.println(interactivityAluguel.alugarVeiculo());
                     break;
 
                 case 2: //Devolver veículo
-                    AluguelController.devolverVeiculo();
+                    System.out.println(interactivityAluguel.devolverVeiculo());
                     break;
 
                 case 3: //Voltar

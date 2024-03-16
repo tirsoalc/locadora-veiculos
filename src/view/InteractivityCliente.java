@@ -172,7 +172,3 @@ public class InteractivityCliente {
         }
     }
 }
-
-
-
-

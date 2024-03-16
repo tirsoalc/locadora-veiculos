@@ -1,31 +1,25 @@
-import controller.AluguelController;
-import controller.ClienteController;
-import controller.VeiculoController;
+import controller.*;
 import model.cliente.Cliente;
-import repository.aluguel.AluguelRepository;
-import repository.aluguel.AluguelRepositoryInterface;
-import repository.cliente.ClienteRepository;
-import repository.cliente.ClienteRepositoryInterface;
-import repository.veiculo.VeiculoRepository;
-import repository.veiculo.VeiculoRepositoryInterface;
+import repository.aluguel.*;
+import repository.cliente.*;
+import repository.veiculo.*;
 import view.*;
 
 public class Main {
     public static void main(String[] args) {
         ClienteRepositoryInterface<Cliente> clienteClienteRepositoryInterface = new ClienteRepository<>();
         VeiculoRepositoryInterface veiculoRepositoryInterface = new VeiculoRepository();
-//        AluguelRepositoryInterface aluguelRepositoryInterface = new AluguelRepository();
+        AluguelRepositoryInterface aluguelRepositoryInterface = new AluguelRepository();
 
         ClienteController clienteController = new ClienteController(clienteClienteRepositoryInterface);
         VeiculoController veiculoController = new VeiculoController(veiculoRepositoryInterface);
-//        AluguelController aluguelController = new AluguelController(aluguelRepositoryInterface);
-//        LocadoraVeiculo locadoraVeiculo = new LocadoraVeiculo();
+        AluguelController aluguelController = new AluguelController(aluguelRepositoryInterface);
 
         InteractivityCliente interactivityCliente = new InteractivityCliente(clienteController);
         InteractivityVeiculo interactivityVeiculo = new InteractivityVeiculo(veiculoController);
-//        InteractivityAluguel interactivityAluguel = new InteractivityAluguel(aluguelController);
-//        InteractivityLocadoraVeiculo interactivityLocadoraVeiculo = new InteractivityLocadoraVeiculo(locadoraVeiculo);
-        Interactivity interactivity = new Interactivity(interactivityCliente, interactivityVeiculo);
+        InteractivityAluguel interactivityAluguel = new InteractivityAluguel(aluguelController);
+
+        Interactivity interactivity = new Interactivity(interactivityCliente, interactivityVeiculo, interactivityAluguel);
         interactivity.mainMenu();
     }
 }
