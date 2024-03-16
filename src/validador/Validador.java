@@ -2,6 +2,7 @@ package validador;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Validador {
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -34,5 +35,9 @@ public class Validador {
             return false;
         }
         return true;
+    }
+
+    public static boolean dataDevolucaoValida(Date dataInicio, Date dataFinal) {
+        return dataFinal.after(dataInicio);
     }
 }

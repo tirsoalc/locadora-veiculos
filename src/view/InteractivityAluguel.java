@@ -6,6 +6,7 @@ import controller.VeiculoController;
 import controller.input.*;
 import model.cliente.Cliente;
 import model.veiculo.Veiculo;
+import validador.Validador;
 import view.utils.ClienteUtil;
 
 import java.text.ParseException;
@@ -67,6 +68,9 @@ public class InteractivityAluguel {
             Date dataDevolucao = InputController.obterDataValidada(
                     MensagemSaidaAluguel.DATA_DEVOLUCAO.getMensagem(),
                     scanner);
+            if (!Validador.dataDevolucaoValida(dataAluguel, dataDevolucao)) {
+                return  MensagemSaidaAluguel.DATA_DEVOLUCAO_ERRO.getMensagem();
+            }
 
             return aluguelController.alugarVeiculo(cliente, veiculo, local, dataAluguel, dataDevolucao);
         } catch (IllegalArgumentException | ParseException e) {
