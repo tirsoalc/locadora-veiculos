@@ -60,6 +60,10 @@ public class AluguelController {
 
     }
 
+    public AluguelRepositoryInterface getAlugueis() {
+        return alugueis;
+    }
+
     public List<Aluguel> alugueisAtivos(AluguelRepositoryInterface alugueis) {
         return alugueis.getAlugueisCadastrados().stream()
                 .filter(Aluguel::isAluguelAtivo)
