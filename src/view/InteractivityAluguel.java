@@ -89,14 +89,9 @@ public class InteractivityAluguel {
                 return MensagemSaidaVeiculo.VEICULO_NAO_ENCONTRADO.getMensagem();
             }
 
-
             return aluguelController.devolverVeiculo(veiculo);
         } catch (IllegalArgumentException e) {
             return e.getMessage();
         }
-
-
-
-
     }
 }

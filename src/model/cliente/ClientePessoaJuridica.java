@@ -30,7 +30,7 @@ public class ClientePessoaJuridica implements Cliente, Identificavel {
 
     @Override
     public void removerVeiculoAlugado(Veiculo veiculo) {
-
+        veiculosAlugados.remove(veiculo);
     }
 
     @Override
@@ -65,5 +65,4 @@ public class ClientePessoaJuridica implements Cliente, Identificavel {
     public String mostrarInformacoes() {
         return "Cliente Pessoa Jurídica: Razão Social = " + razaoSocial + ", CNPJ = " + cnpj;
     }
-
 }

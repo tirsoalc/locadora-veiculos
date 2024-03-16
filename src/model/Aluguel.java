@@ -1,11 +1,9 @@
 package model;
 
 import model.cliente.Cliente;
-import model.veiculo.TipoVeiculo;
 import model.veiculo.Veiculo;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class Aluguel implements Identificavel{
     private static Integer idCounter = 1;
@@ -51,5 +49,13 @@ public class Aluguel implements Identificavel{
 
     public double getDoubleValorDiaria() {
         return doubleValorDiaria;
+    }
+
+    public Date getDataAluguel() {
+        return dataAluguel;
+    }
+
+    public Date getDataDevolucao() {
+        return dataDevolucao;
     }
 }

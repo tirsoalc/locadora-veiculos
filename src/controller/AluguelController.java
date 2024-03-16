@@ -1,15 +1,20 @@
 package controller;
 
 import controller.input.MensagemSaidaAluguel;
+import controller.input.MensagemSaidaErros;
 import controller.input.MensagemSaidaVeiculo;
 import model.Aluguel;
 import model.cliente.Cliente;
+import model.cliente.ClientePessoaFisica;
+import model.cliente.ClientePessoaJuridica;
 import model.veiculo.Veiculo;
 import repository.aluguel.AluguelRepositoryInterface;
 import service.Desconto;
+import service.DescontoPessoaFisica;
+import service.DescontoPessoaJuridica;
+import service.Diarias;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,8 +44,6 @@ public class AluguelController {
 
     //Este método é responsável por devolver um veículo.
     public String devolverVeiculo(Veiculo veiculo) {
-        // Aqui você pode adicionar a lógica para devolver um veículo.
-        //System.out.println("Veículo devolvido com sucesso!");
 
         if (veiculo.isDisponivel()) {
             return MensagemSaidaVeiculo.VEICULO_INDISPONIVEL_DEVOLUCAO.getMensagem();
@@ -48,16 +51,18 @@ public class AluguelController {
 
         Aluguel aluguel = buscarAluguelPorVeiculo(veiculo);
         if (aluguel == null) {
-            return "Um erro inesperado foi encontrado";
+            return MensagemSaidaErros.ERRO_INESPERADO.getMensagem();
         }
+
+        double valorTotal = calcularValorTotal(aluguel);
+        if (valorTotal == -1)
+            return MensagemSaidaErros.ERRO_INESPERADO.getMensagem();
+
         aluguel.getCliente().removerVeiculoAlugado(veiculo);
         veiculo.setDisponivel(true);
         aluguel.setAluguelAtivo(false);
 
-        Desconto desconto;// Completar o método para informar o custo ao cliente
-
-        return MensagemSaidaAluguel.DEVOLUCAO_SUCESSO.getMensagem() + "valor: " + aluguel.getDoubleValorDiaria(); //PLACEHOLDER;
-
+        return MensagemSaidaAluguel.DEVOLUCAO_SUCESSO.getMensagem() + " Valor: R$" + valorTotal;
     }
 
     public List<Aluguel> alugueisAtivos(AluguelRepositoryInterface alugueis) {
@@ -75,8 +80,19 @@ public class AluguelController {
         return null;
     }
 
-    public double calcularValorTotal(Desconto desconto) {
-        //Completar o método e completar também as classes desconto
-        return 0.0;
+    public double calcularValorTotal(Aluguel aluguel) {
+
+        Diarias diarias = new Diarias();
+        int numDiarias = diarias.calculaDiarias(aluguel);
+
+        Desconto desconto;
+        if (aluguel.getCliente() instanceof ClientePessoaFisica) desconto = new DescontoPessoaFisica();
+        else if (aluguel.getCliente() instanceof ClientePessoaJuridica) desconto = new DescontoPessoaJuridica();
+        else return -1;
+
+        double valorTotal = numDiarias * aluguel.getDoubleValorDiaria();
+        valorTotal = valorTotal - (valorTotal * desconto.obterDesconto(numDiarias));
+
+        return valorTotal;
     }
 }
