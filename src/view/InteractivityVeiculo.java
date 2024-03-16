@@ -3,6 +3,7 @@ package view;
 import controller.VeiculoController;
 import controller.input.InputController;
 import controller.input.MensagemCadastroVeiculo;
+import controller.input.MensagemErros;
 import model.veiculo.TipoVeiculo;
 import model.veiculo.Veiculo;
 import validador.Validador;
@@ -14,7 +15,6 @@ import java.util.Scanner;
 public class InteractivityVeiculo {
     Scanner scanner = new Scanner(System.in);
     VeiculoController veiculoController;
-    String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
 
     public InteractivityVeiculo(VeiculoController veiculoController) {
         this.veiculoController = veiculoController;
@@ -58,12 +58,12 @@ public class InteractivityVeiculo {
                 scanner.nextLine();
 
                 if (!Validador.alcanceOpcaoPermitida(1,3,opcaoTipo)) {
-                    System.out.print(opcaoInvalida);
+                    System.out.print(MensagemErros.OPCAO_INVALIDA.getMensagem());
                     scanner.nextLine();
                 }
 
             } catch (InputMismatchException e) {
-                System.out.println(opcaoInvalida);
+                System.out.println(MensagemErros.OPCAO_INVALIDA.getMensagem());
                 scanner.nextLine();
             }
 

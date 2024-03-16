@@ -16,7 +16,7 @@ public class Aluguel implements Identificavel{
     private Date dataDevolucao;
     private double doubleValorDiaria;
 
-    public Aluguel(Veiculo veiculo, Cliente cliente, String local, Date dataAluguel, Date dataDevolucao) {
+    public Aluguel(Cliente cliente, Veiculo veiculo, String local, Date dataAluguel, Date dataDevolucao) {
         this.idAluguel = idCounter++;
         this.veiculo = veiculo;
         this.cliente = cliente;

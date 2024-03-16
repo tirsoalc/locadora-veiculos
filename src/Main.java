@@ -17,7 +17,7 @@ public class Main {
 
         InteractivityCliente interactivityCliente = new InteractivityCliente(clienteController);
         InteractivityVeiculo interactivityVeiculo = new InteractivityVeiculo(veiculoController);
-        InteractivityAluguel interactivityAluguel = new InteractivityAluguel(aluguelController);
+        InteractivityAluguel interactivityAluguel = new InteractivityAluguel(aluguelController, veiculoController, clienteController);
 
         Interactivity interactivity = new Interactivity(interactivityCliente, interactivityVeiculo, interactivityAluguel);
         interactivity.mainMenu();

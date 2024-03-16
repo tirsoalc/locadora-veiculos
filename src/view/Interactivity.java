@@ -1,6 +1,7 @@
 package view;
 
 import controller.AluguelController;
+import controller.input.MensagemErros;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -16,8 +17,6 @@ public class Interactivity {
         this.interactivityVeiculo = interactivityVeiculo;
         this.interactivityAluguel = interactivityAluguel;
     }
-
-    String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
 
     public void mainMenu() {
         int menuOption = 0;
@@ -48,12 +47,12 @@ public class Interactivity {
                         break;
 
                     default:
-                        System.out.print(opcaoInvalida);
+                        System.out.print(MensagemErros.OPCAO_INVALIDA.getMensagem());
                         scanner.nextLine();
                 }
             } catch (InputMismatchException e) {
                 scanner.nextLine();
-                System.out.print(opcaoInvalida);
+                System.out.print(MensagemErros.OPCAO_INVALIDA.getMensagem());
                 scanner.nextLine();
             }
 

@@ -3,8 +3,10 @@ package view;
 import controller.ClienteController;
 import controller.input.InputController;
 import controller.input.MensagemCadastroCliente;
+import controller.input.MensagemErros;
 import model.cliente.Cliente;
 import validador.Validador;
+import view.utils.ClienteUtil;
 import view.utils.Inputs;
 
 import java.util.InputMismatchException;
@@ -14,43 +16,17 @@ public class InteractivityCliente {
     Scanner scanner = new Scanner(System.in);
     ClienteController clienteController;
 
-
     public InteractivityCliente(ClienteController clienteController) {
         this.clienteController = clienteController;
     }
 
-    String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
-
-    public int tipoClienteMenu() {
-        int opcaoTipo = 0;
-        do {
-            Menus.showClienteTipoMenu();
-            System.out.print("Selecione uma opção: ");
-
-            try {
-                opcaoTipo = scanner.nextInt();
-                scanner.nextLine();
-
-                if (opcaoTipo != 1 && opcaoTipo != 2) {
-                    System.out.print(opcaoInvalida);
-                    scanner.nextLine();
-                }
-
-            } catch (InputMismatchException e) {
-                System.out.println(opcaoInvalida);
-                scanner.nextLine();
-            }
-
-        } while (opcaoTipo != 1 && opcaoTipo != 2);
-        return opcaoTipo;
-    }
 
     public String cadastrarCliente() {
-        int opcaoTipo = tipoClienteMenu();
+        int opcaoTipo = ClienteUtil.getTipoCliente(scanner);
 
         if (opcaoTipo == 1) return cadastrarClientePF();
         if (opcaoTipo == 2) return cadastrarClientePJ();
-        return opcaoInvalida;
+        return MensagemErros.OPCAO_INVALIDA.getMensagem();
     }
 
     public String cadastrarClientePF() {
@@ -85,12 +61,11 @@ public class InteractivityCliente {
         }
     }
 
-
     public String alterarCliente() {
-        int opcaoTipoCliente = tipoClienteMenu();
+        int opcaoTipoCliente = ClienteUtil.getTipoCliente(scanner);
         if (opcaoTipoCliente == 1) return alterarClientePF();
         if (opcaoTipoCliente == 2) return alterarClientePJ();
-        return opcaoInvalida;
+        return MensagemErros.OPCAO_INVALIDA.getMensagem();
     }
 
     public String alterarClientePF() {
@@ -123,7 +98,6 @@ public class InteractivityCliente {
     }
 
     public String alterarClientePJ() {
-
         try {
             String cnpjAtual = InputController.obterCnpjValidado(
                     MensagemCadastroCliente.CNPJ_CADASTRO.getMensagem(),

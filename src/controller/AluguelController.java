@@ -10,22 +10,14 @@ import java.util.Date;
 //Esta classe é responsável por controlar as operações de aluguel de veículos.
 public class AluguelController {
     AluguelRepositoryInterface alugueis;
-    ClienteController clienteController;
-    VeiculoController veiculoController;
 
     public AluguelController(AluguelRepositoryInterface alugueis) {
         this.alugueis = alugueis;
     }
 
     //Este método é responsável por cadastrar um aluguel.
-    public String alugarVeiculo(String docCliente, String placaVeiculo, String local, Date dataAluguel, Date dataDevolucao) {
-        Cliente cliente = clienteController.buscarCliente(docCliente);
-        Veiculo veiculo = veiculoController.buscarVeiculo(placaVeiculo);
+    public String alugarVeiculo(Cliente cliente, Veiculo veiculo, String local, Date dataAluguel, Date dataDevolucao) {
 
-        if (cliente == null)
-            return "Cliente não cadastrado no sistema.";
-        else if (veiculo == null)
-            return "Veículo não cadastrado no sistema.";
 
         Aluguel aluguel = new Aluguel(veiculo, cliente, local, dataAluguel, dataDevolucao);
         alugueis.adicionarAluguel(aluguel);

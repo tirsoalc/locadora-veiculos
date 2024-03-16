@@ -2,11 +2,11 @@ package view;
 
 import controller.AluguelController;
 import controller.ClienteController;
-import controller.input.InputController;
-import controller.input.MensagemCadastroAluguel;
-import controller.input.MensagemCadastroCliente;
-import controller.input.MensagemCadastroVeiculo;
+import controller.VeiculoController;
+import controller.input.*;
 import model.cliente.Cliente;
+import model.veiculo.Veiculo;
+import view.utils.ClienteUtil;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -16,17 +16,20 @@ public class InteractivityAluguel {
     Scanner scanner = new Scanner(System.in);
     AluguelController aluguelController;
     ClienteController clienteController;
-    InteractivityCliente interactivityCliente;
+    VeiculoController veiculoController;
 
-    String opcaoInvalida = "\nOpção inválida selecionada. Pressione enter para continuar.";
+    public InteractivityAluguel(AluguelController aluguelController,
+                                VeiculoController veiculoController,
+                                ClienteController clienteController) {
 
-    public InteractivityAluguel(AluguelController aluguelController) {
         this.aluguelController = aluguelController;
+        this.veiculoController = veiculoController;
+        this.clienteController = clienteController;
     }
 
     public String alugarVeiculo() {
         try {
-            int opcaoTipoCliente = interactivityCliente.tipoClienteMenu();
+            int opcaoTipoCliente = ClienteUtil.getTipoCliente(scanner);
             String documento;
 
             if (opcaoTipoCliente == 1)
@@ -38,7 +41,7 @@ public class InteractivityAluguel {
                         MensagemCadastroCliente.CNPJ_CADASTRO.getMensagem(),
                         scanner);
             else
-                return opcaoInvalida;
+                return MensagemErros.OPCAO_INVALIDA.getMensagem();
 
             Cliente cliente = clienteController.buscarCliente(documento);
             if (cliente == null) {
@@ -48,6 +51,10 @@ public class InteractivityAluguel {
             String placa = InputController.obterPlacaValida(
                     MensagemCadastroVeiculo.PLACA_CADASTRO.getMensagem(),
                     scanner);
+            Veiculo veiculo = veiculoController.buscarVeiculo(placa);
+            if (veiculo == null) {
+                return MensagemCadastroVeiculo.VEICULO_NAO_ENCONTRADO.getMensagem();
+            }
 
             String local = InputController.obterLocalValidado(
                     MensagemCadastroAluguel.LOCAL_CADASTRO.getMensagem(),
@@ -61,7 +68,7 @@ public class InteractivityAluguel {
                     MensagemCadastroAluguel.DATA_DEVOLUCAO.getMensagem(),
                     scanner);
 
-            return aluguelController.alugarVeiculo(documento, placa, local, dataAluguel, dataDevolucao);
+            return aluguelController.alugarVeiculo(cliente, veiculo, local, dataAluguel, dataDevolucao);
         } catch (IllegalArgumentException | ParseException e) {
             return e.getMessage();
         }
