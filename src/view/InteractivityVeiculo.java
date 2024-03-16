@@ -2,12 +2,11 @@ package view;
 
 import controller.VeiculoController;
 import controller.input.InputController;
-import controller.input.MensagemCadastroVeiculo;
-import controller.input.MensagemErros;
+import controller.input.MensagemSaidaVeiculo;
+import controller.input.MensagemSaidaErros;
 import model.veiculo.TipoVeiculo;
 import model.veiculo.Veiculo;
 import validador.Validador;
-import view.utils.Inputs;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -24,17 +23,17 @@ public class InteractivityVeiculo {
 
         try {
             String marca = InputController.obterMarcaValida(
-                    MensagemCadastroVeiculo.MARCA_CADASTRO.getMensagem(),
+                    MensagemSaidaVeiculo.MARCA_CADASTRO.getMensagem(),
                     scanner
             );
 
             String modelo = InputController.obterModeloValido(
-                    MensagemCadastroVeiculo.MODELO_CADASTRO.getMensagem(),
+                    MensagemSaidaVeiculo.MODELO_CADASTRO.getMensagem(),
                     scanner
             );
 
             String placa = InputController.obterPlacaValida(
-                    MensagemCadastroVeiculo.PLACA_CADASTRO.getMensagem(),
+                    MensagemSaidaVeiculo.PLACA_CADASTRO.getMensagem(),
                     scanner
             );
 
@@ -58,12 +57,12 @@ public class InteractivityVeiculo {
                 scanner.nextLine();
 
                 if (!Validador.alcanceOpcaoPermitida(1,3,opcaoTipo)) {
-                    System.out.print(MensagemErros.OPCAO_INVALIDA.getMensagem());
+                    System.out.print(MensagemSaidaErros.OPCAO_INVALIDA.getMensagem());
                     scanner.nextLine();
                 }
 
             } catch (InputMismatchException e) {
-                System.out.println(MensagemErros.OPCAO_INVALIDA.getMensagem());
+                System.out.println(MensagemSaidaErros.OPCAO_INVALIDA.getMensagem());
                 scanner.nextLine();
             }
 
@@ -81,7 +80,7 @@ public class InteractivityVeiculo {
 
         try {
             String placaAtual = InputController.obterPlacaValida(
-                    MensagemCadastroVeiculo.PLACA_CADASTRO.getMensagem(),
+                    MensagemSaidaVeiculo.PLACA_CADASTRO.getMensagem(),
                     scanner
             );
 
@@ -91,17 +90,17 @@ public class InteractivityVeiculo {
             }
 
             String marca = InputController.obterMarcaValida(
-                    MensagemCadastroVeiculo.MARCA_ALTERAR.getMensagem()
+                    MensagemSaidaVeiculo.MARCA_ALTERAR.getMensagem()
                     ,scanner
             );
 
             String modelo = InputController.obterModeloValido(
-                    MensagemCadastroVeiculo.MODELO_ALTERAR.getMensagem()
+                    MensagemSaidaVeiculo.MODELO_ALTERAR.getMensagem()
                     ,scanner
             );
 
             String placa = InputController.obterPlacaValida(
-                    MensagemCadastroVeiculo.PLACA_ALTERAR.getMensagem()
+                    MensagemSaidaVeiculo.PLACA_ALTERAR.getMensagem()
                     ,scanner
             );
 
@@ -122,13 +121,13 @@ public class InteractivityVeiculo {
     public String buscarVeiculo() {
         try {
             String placa = InputController.obterPlacaValida(
-                    MensagemCadastroVeiculo.PLACA_CADASTRO.getMensagem()
+                    MensagemSaidaVeiculo.PLACA_CADASTRO.getMensagem()
                     ,scanner
             );
 
             Veiculo veiculo = veiculoController.buscarVeiculo(placa);
             if (veiculo == null) {
-                return MensagemCadastroVeiculo.VEICULO_NAO_ENCONTRADO.getMensagem();
+                return MensagemSaidaVeiculo.VEICULO_NAO_ENCONTRADO.getMensagem();
             }
             return veiculo.mostrarInformacoes();
 

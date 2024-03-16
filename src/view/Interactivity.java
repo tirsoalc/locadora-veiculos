@@ -1,7 +1,6 @@
 package view;
 
-import controller.AluguelController;
-import controller.input.MensagemErros;
+import controller.input.MensagemSaidaErros;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -47,12 +46,12 @@ public class Interactivity {
                         break;
 
                     default:
-                        System.out.print(MensagemErros.OPCAO_INVALIDA.getMensagem());
+                        System.out.print(MensagemSaidaErros.OPCAO_INVALIDA.getMensagem());
                         scanner.nextLine();
                 }
             } catch (InputMismatchException e) {
                 scanner.nextLine();
-                System.out.print(MensagemErros.OPCAO_INVALIDA.getMensagem());
+                System.out.print(MensagemSaidaErros.OPCAO_INVALIDA.getMensagem());
                 scanner.nextLine();
             }
 

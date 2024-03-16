@@ -1,6 +1,6 @@
 package controller.input;
 
-public enum MensagemCadastroVeiculo {
+public enum MensagemSaidaVeiculo {
 
     MARCA_CADASTRO("Digite a marca do veículo: "),
     MARCA_ALTERAR("Digite a nova marca do veículo: "),
@@ -14,11 +14,13 @@ public enum MensagemCadastroVeiculo {
     PLACA_ALTERAR("Digite a nova placa do veículo: "),
     PLACA_ERRO("Por favor, digite uma placa válida (Exemplo: ABC0123 ou ABC0D12)"),
 
-    VEICULO_NAO_ENCONTRADO("Veículo não encontrado no sistema");
+    VEICULO_NAO_ENCONTRADO("Veículo não encontrado no sistema"),
+    VEICULO_INDISPONIVEL_LOCACAO("O veículo está indisponível para locação"),
+    VEICULO_INDISPONIVEL_DEVOLUCAO("O veículo não está alugado no momento para nenhum cliente");
 
     final private String mensagem;
 
-    MensagemCadastroVeiculo(String mensagem) {
+    MensagemSaidaVeiculo(String mensagem) {
         this.mensagem = mensagem;
     }
 

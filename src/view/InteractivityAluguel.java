@@ -34,38 +34,38 @@ public class InteractivityAluguel {
 
             if (opcaoTipoCliente == 1)
                 documento = InputController.obterCpfValidado(
-                        MensagemCadastroCliente.CPF_CADASTRO.getMensagem(),
+                        MensagemSaidaCliente.CPF_CADASTRO.getMensagem(),
                         scanner);
             else if (opcaoTipoCliente == 2)
                 documento = InputController.obterCnpjValidado(
-                        MensagemCadastroCliente.CNPJ_CADASTRO.getMensagem(),
+                        MensagemSaidaCliente.CNPJ_CADASTRO.getMensagem(),
                         scanner);
             else
-                return MensagemErros.OPCAO_INVALIDA.getMensagem();
+                return MensagemSaidaErros.OPCAO_INVALIDA.getMensagem();
 
             Cliente cliente = clienteController.buscarCliente(documento);
             if (cliente == null) {
-                return MensagemCadastroCliente.CLIENTE_NAO_ENCONTRADO.getMensagem();
+                return MensagemSaidaCliente.CLIENTE_NAO_ENCONTRADO.getMensagem();
             }
 
             String placa = InputController.obterPlacaValida(
-                    MensagemCadastroVeiculo.PLACA_CADASTRO.getMensagem(),
+                    MensagemSaidaVeiculo.PLACA_CADASTRO.getMensagem(),
                     scanner);
             Veiculo veiculo = veiculoController.buscarVeiculo(placa);
             if (veiculo == null) {
-                return MensagemCadastroVeiculo.VEICULO_NAO_ENCONTRADO.getMensagem();
+                return MensagemSaidaVeiculo.VEICULO_NAO_ENCONTRADO.getMensagem();
             }
 
             String local = InputController.obterLocalValidado(
-                    MensagemCadastroAluguel.LOCAL_CADASTRO.getMensagem(),
+                    MensagemSaidaAluguel.LOCAL_CADASTRO.getMensagem(),
                     scanner);
 
             Date dataAluguel = InputController.obterDataValidada(
-                    MensagemCadastroAluguel.DATA_ALUGUEL.getMensagem(),
+                    MensagemSaidaAluguel.DATA_ALUGUEL.getMensagem(),
                     scanner);
 
             Date dataDevolucao = InputController.obterDataValidada(
-                    MensagemCadastroAluguel.DATA_DEVOLUCAO.getMensagem(),
+                    MensagemSaidaAluguel.DATA_DEVOLUCAO.getMensagem(),
                     scanner);
 
             return aluguelController.alugarVeiculo(cliente, veiculo, local, dataAluguel, dataDevolucao);
@@ -75,6 +75,24 @@ public class InteractivityAluguel {
     }
 
     public String devolverVeiculo() {
-        return "";
+        try {
+            String placa = InputController.obterPlacaValida(
+                    MensagemSaidaVeiculo.PLACA_CADASTRO.getMensagem(),
+                    scanner);
+            Veiculo veiculo = veiculoController.buscarVeiculo(placa);
+
+            if (veiculo == null) {
+                return MensagemSaidaVeiculo.VEICULO_NAO_ENCONTRADO.getMensagem();
+            }
+
+
+            return aluguelController.devolverVeiculo(veiculo);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
+
+
+
+
     }
 }

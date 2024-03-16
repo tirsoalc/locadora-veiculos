@@ -1,13 +1,16 @@
 package model.cliente;
 
 import model.Identificavel;
+import model.veiculo.Veiculo;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 public class ClientePessoaFisica implements Cliente, Identificavel {
 
     private String nome;
     private String cpf;
+    final private HashSet<Veiculo> veiculosAlugados = new HashSet<>();
 
     public ClientePessoaFisica(String nome, String cpf) {
         this.nome = nome;
@@ -23,6 +26,21 @@ public class ClientePessoaFisica implements Cliente, Identificavel {
     public void alterarInformacoes(String nome, String documento) {
         this.nome = nome;
         this.cpf = documento;
+    }
+
+    @Override
+    public void adicionarVeiculoAlugado(Veiculo veiculo) {
+        veiculosAlugados.add(veiculo);
+    }
+
+    @Override
+    public void removerVeiculoAlugado(Veiculo veiculo) {
+        veiculosAlugados.remove(veiculo);
+    }
+
+    @Override
+    public HashSet<Veiculo> verificarVeiculosAlugados() {
+        return veiculosAlugados;
     }
 
     @Override

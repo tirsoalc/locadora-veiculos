@@ -8,7 +8,7 @@ import repository.cliente.ClienteRepositoryInterface;
 //Esta classe é responsável por controlar as operações de clientes.
 public class ClienteController {
 
-    private ClienteRepositoryInterface<Cliente> clientes;
+    final private ClienteRepositoryInterface<Cliente> clientes;
 
     //Construtor da classe ClienteController.
     public ClienteController(ClienteRepositoryInterface<Cliente> clientes) {

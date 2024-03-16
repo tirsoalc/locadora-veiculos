@@ -1,6 +1,6 @@
 package controller.input;
 
-public enum MensagemCadastroCliente {
+public enum MensagemSaidaCliente {
     NOME_CADASTRO("Digite o nome do cliente: "),
     NOME_ALTERAR("Digite o novo nome do cliente: "),
     NOME_ERRO("Por favor, não deixe o nome do cliente em branco"),
@@ -27,7 +27,7 @@ public enum MensagemCadastroCliente {
 
     private final String mensagem;
 
-    MensagemCadastroCliente(String mensagem) {
+    MensagemSaidaCliente(String mensagem) {
         this.mensagem = mensagem;
     }
 

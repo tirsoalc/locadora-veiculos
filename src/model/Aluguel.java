@@ -5,6 +5,7 @@ import model.veiculo.TipoVeiculo;
 import model.veiculo.Veiculo;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Aluguel implements Identificavel{
     private static Integer idCounter = 1;
@@ -15,6 +16,7 @@ public class Aluguel implements Identificavel{
     private Date dataAluguel;
     private Date dataDevolucao;
     private double doubleValorDiaria;
+    private boolean aluguelAtivo = true;
 
     public Aluguel(Cliente cliente, Veiculo veiculo, String local, Date dataAluguel, Date dataDevolucao) {
         this.idAluguel = idCounter++;
@@ -29,5 +31,25 @@ public class Aluguel implements Identificavel{
     @Override
     public String getId() {
         return String.valueOf(idAluguel);
+    }
+
+    public void setAluguelAtivo(boolean aluguelAtivo) {
+        this.aluguelAtivo = aluguelAtivo;
+    }
+
+    public boolean isAluguelAtivo() {
+        return aluguelAtivo;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public double getDoubleValorDiaria() {
+        return doubleValorDiaria;
     }
 }
