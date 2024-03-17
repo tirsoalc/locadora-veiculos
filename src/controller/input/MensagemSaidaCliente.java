@@ -34,6 +34,4 @@ public enum MensagemSaidaCliente {
     public String getMensagem() {
         return mensagem;
     }
-
-
 }

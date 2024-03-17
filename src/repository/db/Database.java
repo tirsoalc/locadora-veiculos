@@ -33,5 +33,4 @@ public class Database<T> implements DatabaseInterface<T> {
     public HashSet<T> getLista() {
         return lista;
     }
-
 }

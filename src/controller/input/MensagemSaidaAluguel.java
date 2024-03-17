@@ -10,7 +10,9 @@ public enum MensagemSaidaAluguel {
     LOCAL_ERRO("Pro favor, não deixe o local em branco"),
 
     CADASTRO_SUCESSO("Aluguel cadastrado com sucesso."),
-    DEVOLUCAO_SUCESSO("A devolução foi realizada com sucesso.");
+    DEVOLUCAO_SUCESSO("A devolução foi realizada com sucesso."),
+
+    DESCONTO_ERRO("Nenhum desconto foi encontrado.");
 
     private final String mensagem;
 

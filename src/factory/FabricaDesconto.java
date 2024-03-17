@@ -1,5 +1,7 @@
 package factory;
 
+import controller.input.MensagemSaidaAluguel;
+import controller.input.MensagemSaidaErros;
 import model.cliente.Cliente;
 import model.cliente.ClientePessoaFisica;
 import model.cliente.ClientePessoaJuridica;
@@ -30,9 +32,9 @@ public class FabricaDesconto {
                 return descontoClasse.getDeclaredConstructor().newInstance();
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
                      InvocationTargetException e) {
-                System.out.println("\n Um erro inesperado foi encontrado. " + e.getMessage());
+                System.out.println(MensagemSaidaErros.ERRO_INESPERADO + e.getMessage());
             }
         }
-        throw new IllegalArgumentException("Nenhum desconto foi encontrado.");
+        throw new IllegalArgumentException(MensagemSaidaAluguel.DESCONTO_ERRO.getMensagem());
     }
 }

@@ -6,13 +6,9 @@ import controller.input.MensagemSaidaVeiculo;
 import factory.FabricaDesconto;
 import model.Aluguel;
 import model.cliente.Cliente;
-import model.cliente.ClientePessoaFisica;
-import model.cliente.ClientePessoaJuridica;
 import model.veiculo.Veiculo;
 import repository.aluguel.AluguelRepositoryInterface;
 import service.Desconto;
-import service.DescontoPessoaFisica;
-import service.DescontoPessoaJuridica;
 import service.Diarias;
 
 import java.util.Date;
