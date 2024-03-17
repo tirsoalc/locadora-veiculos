@@ -5,13 +5,15 @@ import model.Aluguel;
 public class Diarias {
     public int calculaDiarias(Aluguel aluguel){
 
-        long difHoras = Math.abs(aluguel.getDataDevolucao().getTime() - aluguel.getDataAluguel().getTime()) / (60 * 60 * 1000);
-        int numDias = Math.round((float) difHoras / 24);
+        long diaEmMilli = (24 * 60 * 60 * 1000);
+        long diferencaTotalMilli = Math.abs(aluguel.getDataDevolucao().getTime() - aluguel.getDataAluguel().getTime());
 
-        //Horas adicionais devem somar como uma diária
-        if ((difHoras % 24) > 0)
+        int numDias = (int) (diferencaTotalMilli / diaEmMilli);
+        //Millisegundo (ou minuto devido a estrutura) adicional deve somar como uma diária
+        if (diferencaTotalMilli%diaEmMilli > 0)
             numDias++;
 
         return numDias;
+
     }
 }

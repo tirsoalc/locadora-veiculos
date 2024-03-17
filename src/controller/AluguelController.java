@@ -3,6 +3,7 @@ package controller;
 import controller.input.MensagemSaidaAluguel;
 import controller.input.MensagemSaidaErros;
 import controller.input.MensagemSaidaVeiculo;
+import factory.FabricaDesconto;
 import model.Aluguel;
 import model.cliente.Cliente;
 import model.cliente.ClientePessoaFisica;
@@ -89,13 +90,15 @@ public class AluguelController {
         Diarias diarias = new Diarias();
         int numDiarias = diarias.calculaDiarias(aluguel);
 
-        Desconto desconto;
-        if (aluguel.getCliente() instanceof ClientePessoaFisica) desconto = new DescontoPessoaFisica();
-        else if (aluguel.getCliente() instanceof ClientePessoaJuridica) desconto = new DescontoPessoaJuridica();
-        else return -1;
-
+        Desconto desconto = null;
         double valorTotal = numDiarias * aluguel.getDoubleValorDiaria();
-        valorTotal = valorTotal - (valorTotal * desconto.obterDesconto(numDiarias));
+        try {
+            desconto = FabricaDesconto.getDesconto(aluguel.getCliente());
+            valorTotal = valorTotal - (valorTotal * desconto.obterDesconto(numDiarias));
+            return valorTotal;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Locação sem desconto.");
+        }
 
         return valorTotal;
     }
